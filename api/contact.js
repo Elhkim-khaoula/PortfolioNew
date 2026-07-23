@@ -78,7 +78,7 @@ const getSmtpConfig = () => {
       secure: String(process.env.SMTP_SECURE || '').toLowerCase() === 'true' || port === 465,
       auth: {
         user,
-        pass,
+        pass: pass.replace(/\s/g, ''),
       },
     },
     from: process.env.CONTACT_FROM || user,
