@@ -60,12 +60,17 @@ const escapeHtml = (value) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;')
 
+const cleanEnvValue = (value) => {
+  const trimmed = String(value || '').trim()
+  return trimmed.replace(/^['"]|['"]$/g, '')
+}
+
 const getSmtpConfig = () => {
-  const host = process.env.SMTP_HOST
-  const port = Number(process.env.SMTP_PORT || 587)
-  const user = process.env.SMTP_USER
-  const pass = process.env.SMTP_PASS
-  const to = process.env.CONTACT_TO
+  const host = cleanEnvValue(process.env.SMTP_HOST || 'smtp.gmail.com')
+  const port = Number(cleanEnvValue(process.env.SMTP_PORT || 587))
+  const user = cleanEnvValue(process.env.SMTP_USER || process.env.GMAIL_USER)
+  const pass = cleanEnvValue(process.env.SMTP_PASS || process.env.GMAIL_APP_PASSWORD)
+  const to = cleanEnvValue(process.env.CONTACT_TO || process.env.GMAIL_TO || user)
 
   if (!host || !Number.isInteger(port) || port <= 0 || !user || !pass || !to) {
     return null
@@ -81,7 +86,7 @@ const getSmtpConfig = () => {
         pass: pass.replace(/\s/g, ''),
       },
     },
-    from: process.env.CONTACT_FROM || user,
+    from: cleanEnvValue(process.env.CONTACT_FROM || user),
     to,
   }
 }

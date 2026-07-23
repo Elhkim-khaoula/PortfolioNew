@@ -115,6 +115,7 @@ Notes:
 - `SMTP_PASS` should be a Gmail App Password, not your normal Gmail password.
 - Gmail displays app passwords in groups with spaces. The API strips spaces automatically, so either format works.
 - Keep the real `SMTP_PASS` only in your local `.env` file and Vercel Environment Variables. Do not put the real password in `.env.example`.
+- In Vercel, add these variables to the Production environment and redeploy after saving them. The correct prefix is `SMTP`, not `STMP`.
 - `CONTACT_FROM` is optional in code and falls back to `SMTP_USER`, but it is listed in `.env.example` for clarity.
 - `.env` is ignored by Git.
 
