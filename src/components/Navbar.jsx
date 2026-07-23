@@ -48,15 +48,15 @@ const Navbar = () => {
     }`
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50">
+    <header className="fixed inset-x-0 top-3 z-50 sm:top-4">
       <nav
-        className={`page-shell relative flex h-16 items-center justify-between rounded-full border px-3 pl-5 transition ${
+        className={`page-shell relative flex h-14 items-center justify-between rounded-full border px-2 pl-4 transition sm:h-16 sm:px-3 sm:pl-5 ${
           scrolled
             ? 'border-[var(--border)] bg-[var(--nav-bg)] shadow-2xl shadow-black/25 backdrop-blur-xl'
             : 'border-[var(--border)] bg-[var(--nav-bg-soft)] backdrop-blur-md'
         }`}
       >
-        <a href="#accueil" className="text-sm font-extrabold tracking-[0.2em] text-white">
+        <a href="#accueil" className="max-w-[13rem] truncate text-xs font-extrabold tracking-[0.14em] text-white sm:text-sm sm:tracking-[0.2em]">
           {profile.logo}
         </a>
 
@@ -78,7 +78,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <a href={profile.cv} download className="primary-button hidden text-sm lg:inline-flex">
+          <a href={profile.cv} download className="nav-download primary-button text-sm">
             <FiDownload aria-hidden="true" />
             Download CV
           </a>
@@ -107,7 +107,7 @@ const Navbar = () => {
         <AnimatePresence>
           {open && (
             <motion.div
-              className="absolute inset-x-0 top-[calc(100%+12px)] rounded-3xl border border-[var(--border)] bg-[var(--nav-bg)] p-4 shadow-2xl backdrop-blur-xl lg:hidden"
+              className="absolute inset-x-0 top-[calc(100%+10px)] max-h-[calc(100vh-5.5rem)] overflow-y-auto rounded-3xl border border-[var(--border)] bg-[var(--nav-bg)] p-3 shadow-2xl backdrop-blur-xl sm:p-4 lg:hidden"
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}

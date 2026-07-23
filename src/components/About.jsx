@@ -6,8 +6,8 @@ import { aboutIcons, aboutText, profile } from '../data/portfolioData'
 
 const About = () => (
   <section id="a-propos" className="section-space theme-surface">
-    <div className="page-shell grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-      <motion.div className="futuristic-card rounded-[32px] p-5" initial={{ opacity: 0, x: -28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+    <div className="page-shell grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+      <motion.div className="futuristic-card mx-auto w-full max-w-[460px] rounded-[28px] p-4 sm:rounded-[32px] sm:p-5 lg:max-w-none" initial={{ opacity: 0, x: -28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
         <img src={profileImage} alt="Khaoula El Hkim" className="aspect-[4/5] w-full rounded-[26px] object-cover" />
         <div className="mt-5 grid gap-3">
           <div className="flex items-center gap-3 rounded-2xl border border-[var(--border)] bg-white/[0.035] p-4">
@@ -28,7 +28,7 @@ const About = () => (
         <SectionHeader label="Profile" title="About Me" align="left" />
         <div className="space-y-5">
           {aboutText.map((paragraph) => (
-            <p key={paragraph} className="muted text-lg leading-8">
+            <p key={paragraph} className="muted text-base leading-7 sm:text-lg sm:leading-8">
               {paragraph}
             </p>
           ))}

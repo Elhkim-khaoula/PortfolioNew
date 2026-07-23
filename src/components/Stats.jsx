@@ -33,14 +33,14 @@ const Stats = () => (
   <section className="py-10">
     <div className="page-shell">
       <motion.div
-        className="futuristic-card grid rounded-[32px] p-5 sm:grid-cols-2 lg:grid-cols-4"
+        className="futuristic-card grid rounded-[28px] p-3 sm:grid-cols-2 sm:rounded-[32px] sm:p-5 lg:grid-cols-4"
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
         {stats.map((item, index) => (
-          <div key={item.label} className={`p-6 text-center ${index ? 'border-t border-[var(--border)] sm:border-l sm:border-t-0' : ''}`}>
-            <p className="blue-gradient-text text-4xl font-extrabold sm:text-5xl">
+          <div key={item.label} className={`p-5 text-center sm:p-6 ${index ? 'border-t border-[var(--border)] sm:border-l sm:border-t-0' : ''}`}>
+            <p className="blue-gradient-text text-3xl font-extrabold sm:text-5xl">
               <Counter value={item.value} suffix={item.suffix} />
             </p>
             <p className="muted mt-2 text-sm font-bold uppercase tracking-[0.12em]">{item.label}</p>

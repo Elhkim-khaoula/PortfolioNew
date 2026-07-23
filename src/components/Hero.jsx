@@ -21,15 +21,15 @@ const Hero = () => {
   }
 
   return (
-    <section id="accueil" className="relative min-h-screen overflow-hidden pt-32">
-      <div className="page-shell grid min-h-[calc(100vh-8rem)] items-center gap-14 py-12 lg:grid-cols-[1.05fr_0.95fr]">
+    <section id="accueil" className="relative overflow-hidden pt-24 sm:pt-28 lg:min-h-screen lg:pt-32">
+      <div className="page-shell grid min-h-[calc(100vh-7rem)] items-center gap-10 py-10 sm:gap-14 sm:py-12 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <motion.p className="section-kicker" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             Full Stack Developer
           </motion.p>
           <div className="mt-6 overflow-hidden">
             <motion.h1
-              className="max-w-4xl text-4xl font-extrabold leading-[1.08] text-white sm:text-5xl lg:text-6xl"
+              className="max-w-4xl text-[clamp(2.25rem,12vw,3.4rem)] font-extrabold leading-[1.08] text-white sm:text-5xl lg:text-6xl"
               initial={{ y: 90 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -38,7 +38,7 @@ const Hero = () => {
             </motion.h1>
           </div>
           <motion.p
-            className="muted mt-6 max-w-2xl text-lg leading-8"
+            className="muted mt-5 max-w-2xl text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.18 }}
@@ -46,7 +46,7 @@ const Hero = () => {
             I am Khaoula El Hkim, a Full Stack Developer based in Marrakech. I design and build modern web applications with React.js, Django, Python, PHP, and SQL.
           </motion.p>
           <motion.div
-            className="mt-8 flex flex-wrap gap-4"
+            className="mt-8 grid gap-3 sm:flex sm:flex-wrap sm:gap-4"
             initial="hidden"
             animate="show"
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09 } } }}
@@ -74,7 +74,7 @@ const Hero = () => {
         </div>
 
         <motion.div
-          className="relative mx-auto w-full max-w-[470px]"
+          className="relative mx-auto w-full max-w-[330px] sm:max-w-[470px]"
           onMouseMove={onMouseMove}
           onMouseLeave={() => setTilt({ x: 0, y: 0 })}
           initial={{ opacity: 0, scale: 0.86 }}
@@ -82,19 +82,19 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.15 }}
           style={{ rotateX: -tilt.y, rotateY: tilt.x }}
         >
-          <div className="pulse-ring absolute inset-8 rounded-full border border-[rgba(164,222,255,0.42)] shadow-[0_0_80px_var(--glow)]" />
-          <div className="spin-slow absolute inset-2 rounded-[44%_56%_54%_46%] border border-dashed border-[rgba(77,184,255,0.34)]" />
-          <div className="absolute inset-14 rounded-full bg-[rgba(77,184,255,0.2)] blur-3xl" />
-          <div className="futuristic-card relative mx-auto aspect-square max-w-[390px] rounded-[42%_58%_52%_48%] p-5">
+          <div className="pulse-ring absolute inset-5 rounded-full border border-[rgba(164,222,255,0.42)] shadow-[0_0_80px_var(--glow)] sm:inset-8" />
+          <div className="spin-slow absolute inset-1 rounded-[44%_56%_54%_46%] border border-dashed border-[rgba(77,184,255,0.34)] sm:inset-2" />
+          <div className="absolute inset-10 rounded-full bg-[rgba(77,184,255,0.2)] blur-3xl sm:inset-14" />
+          <div className="futuristic-card relative mx-auto aspect-square max-w-[280px] rounded-[42%_58%_52%_48%] p-4 sm:max-w-[390px] sm:p-5">
             <img src={profileImage} alt="Portrait of Khaoula El Hkim" className="h-full w-full rounded-[38%_62%_50%_50%] object-cover" />
           </div>
           {floating.map((item, index) => (
             <motion.span
               key={item}
-              className="float-slow theme-chip absolute rounded-2xl border border-[var(--border)] px-4 py-2 text-sm font-extrabold text-white shadow-[0_14px_40px_rgba(77,184,255,0.13)] backdrop-blur"
+              className="float-slow theme-chip absolute max-w-[9.5rem] rounded-2xl border border-[var(--border)] px-3 py-2 text-center text-[0.7rem] font-extrabold text-white shadow-[0_14px_40px_rgba(77,184,255,0.13)] backdrop-blur sm:max-w-none sm:px-4 sm:text-sm"
               style={{
-                left: ['-2%', '70%', '-5%', '74%', '28%'][index],
-                top: ['18%', '17%', '64%', '68%', '88%'][index],
+                left: ['0%', '62%', '0%', '62%', '23%'][index],
+                top: ['12%', '14%', '66%', '68%', '88%'][index],
                 animationDelay: `${index * 0.4}s`,
               }}
               initial={{ opacity: 0, y: 16 }}

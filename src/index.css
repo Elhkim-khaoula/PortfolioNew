@@ -82,6 +82,13 @@ img {
   max-width: 100%;
 }
 
+main,
+section,
+header,
+footer {
+  max-width: 100%;
+}
+
 ::selection {
   background: rgba(77, 184, 255, 0.4);
 }
@@ -183,6 +190,16 @@ img {
   border-color: var(--border);
   background: color-mix(in srgb, var(--card) 76%, transparent);
   color: var(--blue-3);
+}
+
+.nav-download {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .nav-download {
+    display: inline-flex;
+  }
 }
 
 .theme-surface {
@@ -305,12 +322,40 @@ img {
 }
 
 @media (max-width: 768px) {
+  html {
+    scroll-padding-top: 88px;
+  }
+
   .page-shell {
-    width: min(100% - 24px, 1180px);
+    width: min(100% - 28px, 1180px);
   }
 
   .section-space {
-    padding: 76px 0;
+    padding: 64px 0;
+  }
+
+  .section-kicker {
+    gap: 0.55rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+  }
+
+  .section-kicker::before {
+    width: 24px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+    min-height: 48px;
+    padding-inline: 1rem;
+    text-align: center;
+  }
+
+  .icon-button {
+    width: 42px;
+    height: 42px;
+    min-height: 42px;
   }
 
   .float-slow,

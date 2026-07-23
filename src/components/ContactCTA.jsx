@@ -84,25 +84,25 @@ const ContactCTA = () => {
     <section id="contact" className="section-space">
       <div className="page-shell">
         <motion.div
-          className="futuristic-card relative overflow-hidden rounded-[36px] p-8 sm:p-14"
+          className="futuristic-card relative overflow-hidden rounded-[28px] p-5 sm:rounded-[36px] sm:p-8 lg:p-14"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <div className="absolute -left-24 top-12 h-56 w-56 rotate-12 rounded-[48px] border border-white/10 bg-white/[0.04]" />
-          <div className="absolute -right-20 bottom-8 h-64 w-64 -rotate-12 rounded-[60px] border border-[rgba(164,222,255,0.18)] bg-[rgba(77,184,255,0.08)]" />
+          <div className="absolute -left-32 top-12 h-56 w-56 rotate-12 rounded-[48px] border border-white/10 bg-white/[0.04] sm:-left-24" />
+          <div className="absolute -right-36 bottom-8 h-64 w-64 -rotate-12 rounded-[60px] border border-[rgba(164,222,255,0.18)] bg-[rgba(77,184,255,0.08)] sm:-right-20" />
 
           <div className="relative grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
             <div>
               <p className="section-kicker">Contact</p>
-              <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-5xl">
+              <h2 className="mt-5 text-[clamp(1.9rem,8vw,2.8rem)] font-extrabold leading-tight text-white sm:text-5xl">
                 Let us turn an <span className="blue-gradient-text">idea</span> into a real project.
               </h2>
-              <p className="muted mt-5 max-w-2xl text-lg leading-8">
+              <p className="muted mt-5 max-w-2xl text-base leading-7 sm:text-lg sm:leading-8">
                 Looking for a motivated developer for an internship, mission, or junior opportunity? Get in touch.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap sm:gap-4">
                 <MagneticButton href={`mailto:${profile.email}`} className="primary-button">
                   <FiMail aria-hidden="true" />
                   Contact me
@@ -112,14 +112,14 @@ const ContactCTA = () => {
                   View LinkedIn
                 </MagneticButton>
               </div>
-              <div className="muted mt-8 space-y-2 text-sm font-bold">
-                <p>Email: {profile.email}</p>
-                <p>Phone: {profile.phone}</p>
+              <div className="muted mt-8 space-y-2 break-words text-sm font-bold">
+                <p>Email: <a href={`mailto:${profile.email}`}>{profile.email}</a></p>
+                <p>Phone: <a href={`tel:${profile.phone}`}>{profile.phone}</a></p>
                 <p>Location: {profile.location}</p>
               </div>
             </div>
 
-            <form className="theme-panel rounded-[28px] border border-[var(--border)] p-5 backdrop-blur" onSubmit={handleSubmit} noValidate>
+            <form className="theme-panel min-w-0 rounded-[24px] border border-[var(--border)] p-4 backdrop-blur sm:rounded-[28px] sm:p-5" onSubmit={handleSubmit} noValidate>
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="grid gap-2">
                   <span className="text-sm font-extrabold text-white">Name</span>

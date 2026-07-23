@@ -22,7 +22,7 @@ const FAQ = () => {
               >
                 <button
                   type="button"
-                  className="flex w-full items-center justify-between gap-4 p-6 text-left text-lg font-extrabold text-white"
+                  className="flex w-full items-center justify-between gap-4 p-5 text-left text-base font-extrabold text-white sm:p-6 sm:text-lg"
                   onClick={() => setOpen(isOpen ? -1 : index)}
                   aria-expanded={isOpen}
                 >
@@ -41,7 +41,7 @@ const FAQ = () => {
                       transition={{ duration: 0.28 }}
                       className="overflow-hidden"
                     >
-                      <p className="muted px-6 pb-6 leading-7">{item.answer}</p>
+                      <p className="muted px-5 pb-5 text-sm leading-7 sm:px-6 sm:pb-6 sm:text-base">{item.answer}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
