@@ -67,7 +67,7 @@ const getSmtpConfig = () => {
   const pass = process.env.SMTP_PASS
   const to = process.env.CONTACT_TO
 
-  if (!host || !port || !user || !pass || !to) {
+  if (!host || !Number.isInteger(port) || port <= 0 || !user || !pass || !to) {
     return null
   }
 
@@ -132,13 +132,14 @@ export default async function handler(request, response) {
     console.error('Missing SMTP contact form configuration.')
     return json(response, 500, {
       success: false,
+      code: 'SMTP_CONFIG_MISSING',
       message: 'The contact form is not configured yet.',
     })
   }
 
-  const transporter = nodemailer.createTransport(config.transport)
-
   try {
+    const transporter = nodemailer.createTransport(config.transport)
+
     await transporter.sendMail({
       from: `"Portfolio Contact" <${config.from}>`,
       to: config.to,
@@ -170,6 +171,7 @@ export default async function handler(request, response) {
     console.error('Contact form email failed:', error)
     return json(response, 500, {
       success: false,
+      code: 'SMTP_SEND_FAILED',
       message: 'Unable to send the message right now. Please try again later.',
     })
   }
