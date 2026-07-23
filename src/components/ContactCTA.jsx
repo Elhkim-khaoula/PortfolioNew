@@ -10,6 +10,22 @@ const initialForm = {
   email: '',
   subject: '',
   message: '',
+  company: '',
+}
+
+const maxLengths = {
+  name: 100,
+  email: 254,
+  subject: 150,
+  message: 5000,
+}
+
+const readJsonResponse = async (response) => {
+  try {
+    return await response.json()
+  } catch {
+    return {}
+  }
 }
 
 const ContactCTA = () => {
@@ -21,12 +37,22 @@ const ContactCTA = () => {
   const validate = () => {
     const nextErrors = {}
     if (!form.name.trim()) nextErrors.name = 'Please enter your name.'
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    else if (form.name.trim().length > maxLengths.name) nextErrors.name = `Name must be ${maxLengths.name} characters or fewer.`
+
+    if (!form.email.trim()) {
+      nextErrors.email = 'Please enter your email address.'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       nextErrors.email = 'Please enter a valid email address.'
+    } else if (form.email.trim().length > maxLengths.email) {
+      nextErrors.email = `Email must be ${maxLengths.email} characters or fewer.`
     }
     if (!form.subject.trim()) nextErrors.subject = 'Please enter a subject.'
-    if (form.message.trim().length < 12) {
-      nextErrors.message = 'Please enter a more detailed message.'
+    else if (form.subject.trim().length > maxLengths.subject) nextErrors.subject = `Subject must be ${maxLengths.subject} characters or fewer.`
+
+    if (!form.message.trim()) nextErrors.message = 'Please enter your message.'
+    else if (form.message.trim().length < 12) nextErrors.message = 'Please enter a more detailed message.'
+    else if (form.message.trim().length > maxLengths.message) {
+      nextErrors.message = `Message must be ${maxLengths.message} characters or fewer.`
     }
     return nextErrors
   }
@@ -56,7 +82,7 @@ const ContactCTA = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
-      const data = await response.json()
+      const data = await readJsonResponse(response)
 
       if (!response.ok) {
         setErrors(data.errors || {})
@@ -69,11 +95,11 @@ const ContactCTA = () => {
 
       setForm(initialForm)
       setErrors({})
-      setStatus({ type: 'success', message: data.message })
+      setStatus({ type: 'success', message: data.message || 'Thanks, your message has been sent.' })
     } catch {
       setStatus({
         type: 'error',
-        message: 'The contact server is unavailable. Restart npm run dev.',
+        message: 'Unable to send the message right now. Please try again later.',
       })
     } finally {
       setSending(false)
@@ -127,6 +153,7 @@ const ContactCTA = () => {
                     name="name"
                     value={form.name}
                     onChange={updateField}
+                    maxLength={maxLengths.name}
                     className="theme-input rounded-2xl border border-[var(--border)] px-4 py-3 outline-none transition focus:border-[var(--blue-3)]"
                     autoComplete="name"
                   />
@@ -140,6 +167,7 @@ const ContactCTA = () => {
                     type="email"
                     value={form.email}
                     onChange={updateField}
+                    maxLength={maxLengths.email}
                     className="theme-input rounded-2xl border border-[var(--border)] px-4 py-3 outline-none transition focus:border-[var(--blue-3)]"
                     autoComplete="email"
                   />
@@ -153,6 +181,7 @@ const ContactCTA = () => {
                   name="subject"
                   value={form.subject}
                   onChange={updateField}
+                  maxLength={maxLengths.subject}
                   className="theme-input rounded-2xl border border-[var(--border)] px-4 py-3 outline-none transition focus:border-[var(--blue-3)]"
                 />
                 {errors.subject && <span className="text-sm text-red-300">{errors.subject}</span>}
@@ -164,10 +193,22 @@ const ContactCTA = () => {
                   name="message"
                   value={form.message}
                   onChange={updateField}
+                  maxLength={maxLengths.message}
                   rows="6"
                   className="theme-input resize-y rounded-2xl border border-[var(--border)] px-4 py-3 outline-none transition focus:border-[var(--blue-3)]"
                 />
                 {errors.message && <span className="text-sm text-red-300">{errors.message}</span>}
+              </label>
+
+              <label className="hidden" aria-hidden="true">
+                Company
+                <input
+                  name="company"
+                  tabIndex="-1"
+                  autoComplete="off"
+                  value={form.company}
+                  onChange={updateField}
+                />
               </label>
 
               {status.message && (
@@ -182,7 +223,7 @@ const ContactCTA = () => {
                 </p>
               )}
 
-              <button type="submit" className="primary-button mt-5 w-full" disabled={sending}>
+              <button type="submit" className="primary-button mt-5 w-full" disabled={sending} aria-busy={sending}>
                 <FiSend aria-hidden="true" />
                 {sending ? 'Sending...' : 'Send message'}
               </button>

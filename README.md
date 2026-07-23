@@ -1,23 +1,42 @@
 # Portfolio de Khaoula El Hkim
 
-Portfolio one-page moderne en React, Vite, JavaScript, Tailwind CSS, Framer Motion et React Icons.
+Modern one-page portfolio built with React, Vite, JavaScript, Tailwind CSS, Framer Motion, and React Icons.
 
 ## Installation
 
 ```bash
 npm install
+```
+
+Use the normal Vite dev server when you are working on frontend-only changes:
+
+```bash
 npm run dev
 ```
 
-Build de production :
+Use the Vercel local environment when you need to test the contact form and `/api/contact`:
+
+```bash
+npm run dev:vercel
+```
+
+Production build:
 
 ```bash
 npm run build
 ```
 
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
 ## Structure
 
 ```text
+api/
+  contact.js
 public/
   Khaoula_El_Hkim_CV.pdf
   favicon.svg
@@ -25,8 +44,8 @@ public/
   sitemap.xml
 src/
   assets/
-    profile.jpg
   components/
+    ContactCTA.jsx
     MobileMenu.jsx
     Navbar.jsx
     ProjectCard.jsx
@@ -36,18 +55,6 @@ src/
   data/
     portfolioData.js
   sections/
-    About.jsx
-    Contact.jsx
-    FAQ.jsx
-    Footer.jsx
-    Hero.jsx
-    Projects.jsx
-    Services.jsx
-    Skills.jsx
-    TechStack.jsx
-    Timeline.jsx
-    Volunteering.jsx
-    WorkProcess.jsx
   App.jsx
   index.css
   main.jsx
@@ -55,36 +62,88 @@ tailwind.config.js
 vite.config.js
 ```
 
-## Personnalisation
+## Customization
 
-- Photo de profil : remplacez `src/assets/profile.jpg` par la vraie photo, en gardant le même nom ou en mettant à jour les imports dans `Hero.jsx` et `About.jsx`.
-- CV : placez le PDF final dans `public/Khaoula_El_Hkim_CV.pdf`. Les boutons de téléchargement pointent déjà vers ce fichier.
-- Liens : mettez à jour `src/data/portfolioData.js` pour remplacer le lien LinkedIn `#` et les URLs `github` / `demo` des projets.
-- Images de projets : les cartes utilisent des visuels placeholder commentés dans `ProjectCard.jsx`. Remplacez-les par de vraies captures quand elles sont disponibles.
+- Profile photo: replace `src/assets/profile.jpg` or update the imports that use it.
+- CV: replace `public/Khaoula_El_Hkim_CV.pdf`. The download buttons already point to this file.
+- Links and profile details: update `src/data/portfolioData.js`.
+- Project images: replace the assets in `public/projects/` as needed.
 
-## Formulaire de contact
+## Contact Form
 
-Le formulaire envoie les messages à `khaoulaelhkim@gmail.com` via un petit serveur Node/Nodemailer.
+The contact form posts to `/api/contact`, which is implemented as a Vercel Function in `api/contact.js`.
 
-1. Créez ou mettez à jour `.env` à partir de `.env.example`.
-2. Ajoutez un mot de passe d’application Gmail dans `GMAIL_APP_PASSWORD`.
-3. Lancez le site avec `npm run dev`.
+The function sends email with Nodemailer and reads SMTP secrets only from server-side environment variables. No mail credentials are exposed to React.
 
-Important : ne mettez jamais le mot de passe Gmail dans le code React. `.env` est ignoré par Git.
+Required fields:
 
-## Déploiement
+- `name`
+- `email`
+- `subject`
+- `message`
 
-Vercel :
+Validation runs on both the frontend and backend:
 
-1. Importer le dépôt.
-2. Framework : Vite.
-3. Build command : `npm run build`.
-4. Output directory : `dist`.
+- all fields are required
+- email must be valid
+- max lengths are enforced
+- `message` must be at least 12 characters
+- a hidden `company` honeypot field helps filter simple bots
 
-Netlify :
+## Environment Variables
 
-1. Importer le dépôt.
-2. Build command : `npm run build`.
-3. Publish directory : `dist`.
+Create a local `.env` file from `.env.example`:
 
-Après déploiement, remplacez `https://example.com/` dans `index.html`, `public/robots.txt` et `public/sitemap.xml` par l’URL réelle du site.
+```bash
+cp .env.example .env
+```
+
+For Gmail SMTP, use:
+
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=khaoulaelhkim@gmail.com
+SMTP_PASS=your_gmail_app_password
+CONTACT_TO=khaoulaelhkim@gmail.com
+CONTACT_FROM=khaoulaelhkim@gmail.com
+```
+
+Notes:
+
+- `SMTP_PASS` should be a Gmail App Password, not your normal Gmail password.
+- `CONTACT_FROM` is optional in code and falls back to `SMTP_USER`, but it is listed in `.env.example` for clarity.
+- `.env` is ignored by Git.
+
+## Local Development
+
+Frontend only:
+
+```bash
+npm run dev
+```
+
+This starts Vite. The site UI works, but `/api/contact` is not served by plain Vite.
+
+Full local environment:
+
+```bash
+npm run dev:vercel
+```
+
+This starts Vercel Dev, serves the Vite app, loads the Vercel Function at `/api/contact`, and is the correct local workflow for testing the contact form.
+
+## Deployment
+
+Vercel:
+
+1. Import the repository.
+2. Framework preset: Vite.
+3. Build command: `npm run build`.
+4. Output directory: `dist`.
+5. Add the environment variables listed above in Vercel Project Settings.
+6. Deploy.
+7. Test the contact form on the production URL.
+
+After deployment, replace `https://example.com/` in `index.html`, `public/robots.txt`, and `public/sitemap.xml` with the real site URL.
