@@ -78,10 +78,12 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <a href={profile.cv} download className="nav-download primary-button text-sm">
-            <FiDownload aria-hidden="true" />
-            Download CV
-          </a>
+          <div className="hidden lg:block">
+            <a href={profile.cv} download className="primary-button text-sm">
+              <FiDownload aria-hidden="true" />
+              Download CV
+            </a>
+          </div>
 
           <button
             type="button"

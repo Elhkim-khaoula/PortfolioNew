@@ -192,16 +192,6 @@ footer {
   color: var(--blue-3);
 }
 
-.nav-download {
-  display: none;
-}
-
-@media (min-width: 1024px) {
-  .nav-download {
-    display: inline-flex;
-  }
-}
-
 .theme-surface {
   background: var(--section-bg);
 }
